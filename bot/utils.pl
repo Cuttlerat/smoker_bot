@@ -110,6 +110,7 @@ ping(Message, Usernames) :-
     Sender = Message.get(message).get(from).get(username),
     string_concat("@", Sender, SenderUsername),
     delete(Usernames, SenderUsername, UsernamesToSend),
+    \+ UsernamesToSend = [],
     atomics_to_string(UsernamesToSend, " ", Text),
     send_message(reply(Text),
         Message.get(message).get(message_id),
