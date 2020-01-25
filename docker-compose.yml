@@ -1,0 +1,9 @@
+version: '2'
+services:
+  prolog_bot:
+    image: swipl:8.1.8
+    volumes:
+      - ./bot:/app
+    working_dir: /app
+    restart: always
+    command: swipl bot.pl
