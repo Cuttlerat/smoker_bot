@@ -115,9 +115,19 @@ ping(Message, Usernames) :-
     send_message(reply(Text),
         Message.get(message).get(message_id),
         Message.get(message).get(chat).get(id)),
+    !,
     atomics_to_string(["Ping by",
          SenderUsername,
          "to", Text], " ", Log),
-    log_print(log_level('INFO'), Log),
-    !.
+    log_print(log_level('INFO'), Log).
+
+ping(Message, Usernames) :-
+    \+ Usernames = [],
+    atomics_to_string(Usernames, " ", Text),
+    send_message(reply(Text),
+        Message.get(message).get(message_id),
+        Message.get(message).get(chat).get(id)),
+    !,
+    atomics_to_string(["Ping to", Text], " ", Log),
+    log_print(log_level('INFO'), Log).
 
